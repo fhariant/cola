@@ -1,0 +1,2 @@
+﻿rootProject.name = 'aws-cola'
+include 'amplify:backend:function:hai'
