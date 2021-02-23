@@ -1,14 +1,32 @@
-
-
 package example;
 
 import com.amazonaws.services.lambda.runtime.Context; 
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 public class LambdaRequestHandler implements RequestHandler<RequestClass, ResponseClass>{   
 
     public ResponseClass handleRequest(RequestClass request, Context context){
-        String greetingString = String.format("Hello %s %s!", request.firstName, request.lastName);
+        String greetingString = null;
+		int timeout = 2000;
+        try {
+            InetAddress[] addresses = InetAddress.getAllByName ("www.google.com");
+            for (InetAddress address: addresses) {
+                if (address.isReachable (timeout))
+                    greetingString = "It is reachable";
+                else
+                    greetingString = "could not be contacted";
+            }
+        } catch (UnknownHostException e1) {
+            greetingString = e1.getMessage();
+        } catch (IOException e) {
+            greetingString = e.getMessage();
+        }
+		
         return new ResponseClass(greetingString);
     }
 }
