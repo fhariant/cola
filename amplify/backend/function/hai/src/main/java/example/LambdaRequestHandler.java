@@ -19,11 +19,13 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
                 if (address.isReachable (timeout))
                     greetingString = "It is reachable";
                 else
-                    greetingString = "could not be contacted";
+                    greetingString = "could not be contacted: " + address;
             }
         } catch (UnknownHostException e1) {
+			e1.printStackTrace ();
             greetingString = e1.getMessage();
         } catch (IOException e) {
+			e.printStackTrace ();
             greetingString = e.getMessage();
         }
 		
