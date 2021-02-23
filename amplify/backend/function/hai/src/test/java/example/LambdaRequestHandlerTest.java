@@ -8,6 +8,5 @@ public class LambdaRequestHandlerTest{
 	public void OKtest() throws Exception{
 		System.out.println("Test RUN..!");
 		//OK
-		throw new Exception ("ee");
 	}
 }
