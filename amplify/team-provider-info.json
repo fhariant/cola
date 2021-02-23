@@ -1,0 +1,15 @@
+{
+  "master": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cola-master-121100-authRole",
+      "UnauthRoleArn": "arn:aws:iam::087063705256:role/amplify-cola-master-121100-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::087063705256:role/amplify-cola-master-121100-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-cola-master-121100-deployment",
+      "UnauthRoleName": "amplify-cola-master-121100-unauthRole",
+      "StackName": "amplify-cola-master-121100",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:087063705256:stack/amplify-cola-master-121100/24f7cbf0-758d-11eb-b2b1-06850023b7d0",
+      "AmplifyAppId": "d37q54need2bok"
+    }
+  }
+}

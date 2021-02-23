@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/api/hai",
+            "lambdaFunction": "hai",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/api/hai"
+        }
+    ],
+    "resourceName": "hai",
+    "apiName": "hai",
+    "functionArns": [
+        {
+            "lambdaFunction": "hai"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-cola-master-121100-authRole",
+        "unAuthRoleName": "amplify-cola-master-121100-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "hai",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
