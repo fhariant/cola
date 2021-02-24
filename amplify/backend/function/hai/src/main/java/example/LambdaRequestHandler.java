@@ -12,7 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
+import java.net.HttpsURLConnection;
 import java.net.URL;
 
 public class LambdaRequestHandler implements RequestHandler<RequestClass, ResponseClass>{   
@@ -48,7 +48,7 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
 		String url= System.getenv("URL_ME");
 		System.out.println("Target: " + url);
 		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 		con.setRequestMethod("GET");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		int responseCode = con.getResponseCode();
