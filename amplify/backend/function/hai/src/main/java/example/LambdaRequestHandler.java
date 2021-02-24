@@ -45,7 +45,7 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
 		URL obj = new URL("https://www.google.com");
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("GET");
-		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		int responseCode = con.getResponseCode();
 		System.out.println("GET Response Code :: " + responseCode);
 		if (responseCode == HttpURLConnection.HTTP_OK) { // success
