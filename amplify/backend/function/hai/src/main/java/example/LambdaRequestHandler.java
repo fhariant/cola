@@ -28,6 +28,9 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
                 else
                     greetingString = "could not be contacted: " + address;
             }
+			
+			sendGET();
+		
         } catch (UnknownHostException e1) {
 			e1.printStackTrace ();
             greetingString = e1.getMessage();
@@ -36,7 +39,6 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
             greetingString = e.getMessage();
         }
 		
-		sendGET();
 		
         return new ResponseClass(greetingString);
     }
