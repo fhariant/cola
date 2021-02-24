@@ -22,13 +22,14 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
 		int timeout = 2000;
         try {
             InetAddress[] addresses = InetAddress.getAllByName ("www.google.com");
-            for (InetAddress address: addresses) {
+            /*for (InetAddress address: addresses) {
                 if (address.isReachable (timeout))
                     greetingString = "It is reachable";
                 else
                     greetingString = "could not be contacted: " + address;
-            }
+            }*/
 			
+			System.out.println("call sendGET()");
 			sendGET();
 		
         } catch (UnknownHostException e1) {
@@ -37,14 +38,16 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
         } catch (IOException e) {
 			e.printStackTrace ();
             greetingString = e.getMessage();
-        }
+        } 
 		
 		
         return new ResponseClass(greetingString);
     }
 	
 	private static void sendGET() throws IOException {
-		URL obj = new URL("https://www.google.com");
+		String url= System.getenv("URL_ME");
+		System.out.println("Target: " + url);
+		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("GET");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
