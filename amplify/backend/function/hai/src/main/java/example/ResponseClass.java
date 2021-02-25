@@ -21,11 +21,6 @@ public class ResponseClass {
     }
 
 
-    public void setBase64Encoded (boolean isBase64Encoded) {
-        this.isBase64Encoded = isBase64Encoded;
-    }
-
-
     public void setStatusCode (int statusCode) {
         this.statusCode = statusCode;
     }
