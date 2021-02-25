@@ -43,7 +43,7 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
 		
 		RestTemplate restTemplate = new RestTemplate (); 
         ResponseEntity<String> response = restTemplate.getForEntity (url, String.class);
-        return response;
+        return response.getBody();
 	}
 	
 	private static void sendGET() throws IOException {
