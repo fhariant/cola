@@ -44,8 +44,9 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
             greetingString = e.getMessage();
         } 
 		
-		
-        return new ResponseClass(greetingString);
+		ResponseClass resp= new ResponseClass();
+		resp.setBody(greetingString);
+        return resp;
     }
 	
 	private static String sendREST(){
@@ -55,7 +56,7 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
 			 
 
            
-            RestTemplate restTemplate = new RestTemplate ( );
+            RestTemplate restTemplate = new RestTemplate ( );	
 			
 			 
 			ResponseEntity<String> response = restTemplate.getForEntity (url, String.class);
