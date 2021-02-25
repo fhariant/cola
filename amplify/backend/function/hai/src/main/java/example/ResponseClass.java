@@ -2,21 +2,21 @@ package example;
 
 public class ResponseClass {
 
-    private String isBase64Encoded = "false";
+    private boolean isBase64Encoded = false;
 
     private int statusCode = 200;
 
-    private String headers = "Access-Control-Allow-Origin:*";
+    private String headers = "\"Access-Control-Allow-Origin\":\"*\"";
 
     private String body;
 
 
-    public String getIsBase64Encoded () {
+    public boolean getIsBase64Encoded () {
         return isBase64Encoded;
     }
 
 
-    public void setIsBase64Encoded (String isBase64Encoded) {
+    public void setIsBase64Encoded (boolean isBase64Encoded) {
         this.isBase64Encoded = isBase64Encoded;
     }
 
