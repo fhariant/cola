@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
 import java.security.KeyStore;
 
 import javax.net.ssl.HttpsURLConnection;
-
+import org.apache.http.conn.ssl.TrustAllStrategy;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -54,14 +54,10 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
 		try {
 			String url= System.getenv("URL_ME");
 			System.out.println("Target REST: " + url);
-			
-            KeyStore keyStore = KeyStore.getInstance (KeyStore.getDefaultType ());
-            keyStore.load (new FileInputStream (new File ("/etc/pki/ca-trust/extracted/java/cacerts")),
-                    "changeit".toCharArray ());
+			 
 
-            SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory (
-                    new SSLContextBuilder ().loadTrustMaterial (null, new TrustSelfSignedStrategy ())
-                            .loadKeyMaterial (keyStore, "changeit".toCharArray ()).build (),
+             SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory (
+                    new SSLContextBuilder ().loadTrustMaterial (null, new TrustAllStrategy ()).build (),
                     NoopHostnameVerifier.INSTANCE);
 
             HttpClient httpClient = HttpClients.custom ().setSSLSocketFactory (socketFactory).build ();
