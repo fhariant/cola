@@ -3,20 +3,30 @@ package example;
 import com.amazonaws.services.lambda.runtime.Context; 
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+ 
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import javax.net.ssl.HttpsURLConnection;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
+import java.security.KeyStore;
 
+import javax.net.ssl.HttpsURLConnection;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 public class LambdaRequestHandler implements RequestHandler<RequestClass, ResponseClass>{   
@@ -41,12 +51,31 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
     }
 	
 	private static String sendREST(){
-		String url= System.getenv("URL_ME");
-		System.out.println("Target REST: " + url);
-		
-		RestTemplate restTemplate = new RestTemplate (); 
-        ResponseEntity<String> response = restTemplate.getForEntity (url, String.class);
-        return response.getBody();
+		try {
+			String url= System.getenv("URL_ME");
+			System.out.println("Target REST: " + url);
+			
+            KeyStore keyStore = KeyStore.getInstance (KeyStore.getDefaultType ());
+            keyStore.load (new FileInputStream (new File ("/etc/pki/ca-trust/extracted/java/cacerts")),
+                    "changeit".toCharArray ());
+
+            SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory (
+                    new SSLContextBuilder ().loadTrustMaterial (null, new TrustSelfSignedStrategy ())
+                            .loadKeyMaterial (keyStore, "changeit".toCharArray ()).build (),
+                    NoopHostnameVerifier.INSTANCE);
+
+            HttpClient httpClient = HttpClients.custom ().setSSLSocketFactory (socketFactory).build ();
+
+            ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory (httpClient);
+            RestTemplate restTemplate = new RestTemplate (requestFactory);
+			
+			 
+			ResponseEntity<String> response = restTemplate.getForEntity (url, String.class);
+			return response.getBody();
+		} catch (Exception e) {
+            e.printStackTrace ();
+            return e.getMessage ();
+        }
 	}
 	
 	private static void sendGET() throws IOException {
