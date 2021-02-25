@@ -35,9 +35,7 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
         String greetingString = null;
 		int timeout = 2000;
         try {
-			System.out.println("doSendGet()");
-			sendGET();
-			
+		 
 			System.out.println("sendREST()");
 			greetingString= sendREST();
 		
@@ -56,14 +54,8 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
 			System.out.println("Target REST: " + url);
 			 
 
-             SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory (
-                    new SSLContextBuilder ().loadTrustMaterial (null, new TrustAllStrategy ()).build (),
-                    NoopHostnameVerifier.INSTANCE);
-
-            HttpClient httpClient = HttpClients.custom ().setSSLSocketFactory (socketFactory).build ();
-
-            ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory (httpClient);
-            RestTemplate restTemplate = new RestTemplate (requestFactory);
+           
+            RestTemplate restTemplate = new RestTemplate ( );
 			
 			 
 			ResponseEntity<String> response = restTemplate.getForEntity (url, String.class);
