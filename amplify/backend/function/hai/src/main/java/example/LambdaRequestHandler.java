@@ -16,27 +16,19 @@ import java.net.HttpURLConnection;
 import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
 public class LambdaRequestHandler implements RequestHandler<RequestClass, ResponseClass>{   
 
     public ResponseClass handleRequest(RequestClass request, Context context){
         String greetingString = null;
 		int timeout = 2000;
         try {
-            InetAddress[] addresses = InetAddress.getAllByName ("www.google.com");
-            /*for (InetAddress address: addresses) {
-                if (address.isReachable (timeout))
-                    greetingString = "It is reachable";
-                else
-                    greetingString = "could not be contacted: " + address;
-            }*/
-			
-			System.out.println("call sendGET()");
-			sendGET();
+           
+			greetingString= sendREST();
 		
-        } catch (UnknownHostException e1) {
-			e1.printStackTrace ();
-            greetingString = e1.getMessage();
-        } catch (IOException e) {
+        } catch (Exception e) {
 			e.printStackTrace ();
             greetingString = e.getMessage();
         } 
@@ -44,6 +36,15 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
 		
         return new ResponseClass(greetingString);
     }
+	
+	private static String sendREST(){
+		String url= System.getenv("URL_ME");
+		System.out.println("Target REST: " + url);
+		
+		RestTemplate restTemplate = new RestTemplate (); 
+        ResponseEntity<String> response = restTemplate.getForEntity (url, String.class);
+        return response;
+	}
 	
 	private static void sendGET() throws IOException {
 		String url= System.getenv("URL_ME");
