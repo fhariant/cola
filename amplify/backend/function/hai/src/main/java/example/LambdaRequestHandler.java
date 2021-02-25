@@ -25,7 +25,10 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
         String greetingString = null;
 		int timeout = 2000;
         try {
-           
+			System.out.println("doSendGet()");
+			sendGET();
+			
+			System.out.println("sendREST()");
 			greetingString= sendREST();
 		
         } catch (Exception e) {
