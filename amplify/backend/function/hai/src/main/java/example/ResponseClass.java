@@ -6,7 +6,7 @@ public class ResponseClass {
 
     private int statusCode = 200;
 
-    private String headers = "\"Access-Control-Allow-Origin\":\"*\"";
+    private String headers = "{Access-Control-Allow-Origin:*}";
 
     private String body;
 
