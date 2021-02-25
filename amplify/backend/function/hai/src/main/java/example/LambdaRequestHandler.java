@@ -29,24 +29,29 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-public class LambdaRequestHandler implements RequestHandler<RequestClass, ResponseClass>{   
+public class LambdaRequestHandler implements RequestHandler<RequestClass, String>{   
 
-    public ResponseClass handleRequest(RequestClass request, Context context){
+	private String jsonString="{"
+            + "    \"isBase64Encoded\": false,"
+            + "    \"statusCode\": 200,"
+            + "    \"headers\": { \"Access-Control-Allow-Origin\": \"*\"},"
+            + "    \"body\": {\"message\":\"happytozz\"}"
+            + "}";
+
+    public String handleRequest(RequestClass request, Context context){
         String greetingString = null;
 		int timeout = 2000;
         try {
 		 
 			System.out.println("sendREST()");
 			greetingString= sendREST();
-		
+			System.out.println(greetingString);
         } catch (Exception e) {
 			e.printStackTrace ();
             greetingString = e.getMessage();
         } 
-		
-		ResponseClass resp= new ResponseClass();
-		resp.setBody(greetingString);
-        return resp;
+ 
+        return jsonString;
     }
 	
 	private static String sendREST(){
