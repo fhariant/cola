@@ -2,7 +2,7 @@ package example;
 
 public class ResponseClass {
 
-    private boolean isBase64Encoded = false;
+    private String isBase64Encoded = "false";
 
     private int statusCode = 200;
 
@@ -11,13 +11,13 @@ public class ResponseClass {
     private String body;
 
 
-    public int getStatusCode () {
-        return statusCode;
+    public String getIsBase64Encoded () {
+        return isBase64Encoded;
     }
 
 
-    public boolean isBase64Encoded () {
-        return isBase64Encoded;
+    public void setIsBase64Encoded (String isBase64Encoded) {
+        this.isBase64Encoded = isBase64Encoded;
     }
 
 
