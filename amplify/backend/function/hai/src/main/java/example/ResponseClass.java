@@ -1,10 +1,8 @@
-
-
 package example;
-        
- public class ResponseClass {
 
-    private boolean base64Encoded = false;
+public class ResponseClass {
+
+    private boolean isBase64Encoded = false;
 
     private int statusCode = 200;
 
@@ -13,18 +11,18 @@ package example;
     private String body;
 
 
-    public boolean isBase64Encoded () {
-        return base64Encoded;
-    }
-
-
-    public void setBase64Encoded (boolean base64Encoded) {
-        this.base64Encoded = base64Encoded;
-    }
-
-
     public int getStatusCode () {
         return statusCode;
+    }
+
+
+    public boolean isBase64Encoded () {
+        return isBase64Encoded;
+    }
+
+
+    public void setBase64Encoded (boolean isBase64Encoded) {
+        this.isBase64Encoded = isBase64Encoded;
     }
 
 
