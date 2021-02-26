@@ -32,10 +32,10 @@ import org.springframework.web.client.RestTemplate;
 public class LambdaRequestHandler implements RequestHandler<RequestClass, String>{   
 
 	private String jsonString="{"
-            + "    \"isBase64Encoded\": false,"
-            + "    \"statusCode\": 200,"
-            + "    \"headers\": { \"Access-Control-Allow-Origin\": \"*\"},"
-            + "    \"body\": {\"message\":\"happytozz\"}"
+            + "    isBase64Encoded: false,"
+            + "    statusCode: 200,"
+            + "    headers: { Access-Control-Allow-Origin: *},"
+            + "    body: {message:happytozz}"
             + "}";
 
     public String handleRequest(RequestClass request, Context context){
@@ -50,8 +50,14 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, String
 			e.printStackTrace ();
             greetingString = e.getMessage();
         } 
+		
+		String retVal= jsonString;
+		String retValMe= System.getenv("RETVAL_ME");
+		if (!"".equals(retValMe)){
+			retVal= retValMe;
+		}
  
-        return jsonString;
+        return retVal;
     }
 	
 	private static String sendREST(){
