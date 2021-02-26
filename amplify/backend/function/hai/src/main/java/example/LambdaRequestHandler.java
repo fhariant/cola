@@ -29,16 +29,10 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-public class LambdaRequestHandler implements RequestHandler<RequestClass, String>{   
+public class LambdaRequestHandler implements RequestHandler<RequestClass, ResponseClass>{   
 
-	private String jsonString="{"
-            + "    isBase64Encoded: false,"
-            + "    statusCode: 200,"
-            + "    headers: { Access-Control-Allow-Origin: *},"
-            + "    body: {message:happytozz}"
-            + "}";
-
-    public String handleRequest(RequestClass request, Context context){
+	 
+    public ResponseClass handleRequest(RequestClass request, Context context){
         String greetingString = null;
 		int timeout = 2000;
         try {
@@ -51,11 +45,7 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, String
             greetingString = e.getMessage();
         } 
 		
-		String retVal= jsonString;
-		String retValMe= System.getenv("RETVAL_ME");
-		if (!"".equals(retValMe)){
-			retVal= retValMe;
-		}
+		ResponseClass retVal= new ResponseClass();
  
         return retVal;
     }

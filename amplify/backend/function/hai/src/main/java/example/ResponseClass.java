@@ -6,7 +6,7 @@ public class ResponseClass {
 
     private int statusCode = 200;
 
-    private String headers = "{Access-Control-Allow-Origin:*}";
+    private Header headers = new Header ("Access-Control-Allow-Origin", "*");
 
     private String body;
 
@@ -26,12 +26,12 @@ public class ResponseClass {
     }
 
 
-    public String getHeaders () {
+    public Header getHeaders () {
         return headers;
     }
 
 
-    public void setHeaders (String headers) {
+    public void setHeaders (Header headers) {
         this.headers = headers;
     }
 
