@@ -46,6 +46,7 @@ public class LambdaRequestHandler implements RequestHandler<RequestClass, Respon
         } 
 		
 		ResponseClass retVal= new ResponseClass();
+		retVal.setBody(greetingString);
  
         return retVal;
     }

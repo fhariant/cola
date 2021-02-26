@@ -1,15 +1,23 @@
 package example;
 
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ResponseClass {
 
     private boolean isBase64Encoded = false;
 
     private int statusCode = 200;
 
-    private Header headers = new Header ("Access-Control-Allow-Origin", "*");
+	private Map<String, String> headers= new HashMap<String, String> ();
 
     private String body;
 
+	
+	public ResponseClass(){
+		headers.put("Access-Control-Allow-Origin", "*");
+	}
 
     public boolean getIsBase64Encoded () {
         return isBase64Encoded;
@@ -26,12 +34,12 @@ public class ResponseClass {
     }
 
 
-    public Header getHeaders () {
+    public Map<String, String> getHeaders () {
         return headers;
     }
 
 
-    public void setHeaders (Header headers) {
+    public void setHeaders (Map<String, String> headers) {
         this.headers = headers;
     }
 
